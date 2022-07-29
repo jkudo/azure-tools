@@ -16,7 +16,7 @@ if [ "$1" = "create" ]; then
 elif [ "$1" = "delete" ]; then
         az group delete --name $2$RGPREFIX --force-deletion-types Microsoft.Compute/virtualMachines --yes
 elif [ "$1" = "list" ]; then
-        az vm list --output table
+        az vm list-ip-addresses --query "[].{Name:virtualMachine.name,ResourceGroup:virtualMachine.resourceGroup,PrivateIp:virtualMachine.network.privateIpAddresses[0],PublicIp:virtualMachine.network.publicIpAddresses[0].ipAddress}" --output table
 else
         echo "Can not find option."
         echo "create: vm create"
